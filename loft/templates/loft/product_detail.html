@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load loft_tags %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+
+{% block main %}
+<header class="header">
+    <div class="container">
+        <div class="header__content">
+
+            <!-- /.nav__catigories -->
+
+            <div class="product__slider">
+                <div class="product__slider-content">
+
+                    <div class="sliderLines">
+                        <div class="product__slider-item active">
+                            <img src="{{ product.get_image_product }}" alt="banner"
+                                 class="product__slider-img">
+                        </div>
+
+                        {% for image in product.images.all|slice:"1:" %}
+                        <div class="product__slider-item">
+                            <img src="{{ image.image.url }}" alt="banner"
+                                 class="product__slider-img" width="150">
+                        </div>
+                        {% endfor %}
+
+
+                    </div>
+
+                    {% include 'loft/components/_product__slider_panel.html' %}
+
+
+                </div>
+
+                    {% include 'loft/components/_product__slider_parameters.html' %}
+
+
+            </div>
+            <!-- /.product__slider -->
+
+
+        </div>
+        <!-- /.header__content -->
+    </div>
+    <!-- /.container -->
+</header>
+<main class="main">
+    <div class="container">
+        <section class="products">
+            <h2 class="products__title">Хиты продаж</h2>
+            <div class="products__content">
+
+
+                {% for product in products %}
+                {% include 'loft/components/_products__item.html' %}
+                {% endfor %}
+
+
+            </div>
+        </section>
+        <!-- /.products -->
+    </div>
+    <!-- /.container -->
+</main>
+{% endblock main %}

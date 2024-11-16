@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load loft_tags %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+{% block slider %}
+{% include 'components_base/_slider.html' %}
+{% endblock slider %}
+
+{% block main %}
+
+<main class="main">
+    <div class="container">
+        <section class="products">
+            <h2 class="products__title">Хиты продаж</h2>
+            <div class="products__content">
+
+                <!-- /.products__item -->
+                {% for category in categories %}
+                {% get_products category as products %}
+                {% for product in products %}
+                {% block _products__item %}
+                {% include 'loft/components/_products__item.html' %}
+                {% endblock _products__item %}
+                {% endfor %}
+                {% endfor %}
+
+            </div>
+        </section>
+        <!-- /.products -->
+    </div>
+    <!-- /.container -->
+</main>
+{% endblock main %}

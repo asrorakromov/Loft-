@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load loft_tags %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+
+{% block main %}
+<main class="main">
+    <div class="profile">
+        <div class="container">
+            <div class="profile__content">
+                <form class="profile__form" method="post" action="">
+                    {% csrf_token %}
+                    <h2 class="profile__title">Личные данные</h2>
+                    <div class="profile__form-grid">
+
+                        <div class="input__title">
+                            <h2>Имя</h2>
+                            {{ acc_form.first_name }}
+                        </div>
+                        <div class="input__title">
+                            <h2>E-mail</h2>
+                            {{ acc_form.email }}
+                        </div>
+                        <div class="input__title">
+                            <h2>Фамилия</h2>
+                            {{ acc_form.last_name }}
+                        </div>
+                        <div class="input__title">
+                            <h2>Номер телефона</h2>
+                            {{ profile_form.phone }}
+                        </div>
+                        <div class="input__title">
+                            <h2>Город</h2>
+                            {{ profile_form.city }}
+                        </div>
+                        <div></div>
+                        <div class="input__title _span-two">
+                            <h2>Улица</h2>
+                            {{ profile_form.street }}
+                        </div>
+                        <div class="input__title">
+                            <h2>Дом/Корпус</h2>
+                            {{ profile_form.house }}
+                        </div>
+                        <div class="input__title">
+                            <h2>Квартира</h2>
+                            {{ profile_form.flat }}
+                        </div>
+                    </div>
+                    <button class="btn profile__btn" type="submit">Изменить</button>
+
+                </form>
+
+
+                <div class="profile__orders">
+                    <h2 class="profile__title">Мои заказы</h2>
+                    {% if save_carts %}
+                    <table class="profile__table">
+                        <tr>
+                            <td colspan="4">Товар</td>
+                            <td>Цена</td>
+                            <td>Дата</td>
+                            <td>Статус</td>
+                        </tr>
+                        {% for save_cart in save_carts %}
+                        {% for item in save_cart %}
+                        <tr>
+                            <td colspan="4" class="profile__title-adaptive">
+                                <div class="table__item">
+                                    <a href="{{ product.get_absolute_url }}">
+                                        <img src="{{ item.photo }}" alt="img" width="50" height="30">
+                                        <span style="color: black">{{ item.product }}</span>
+                                    </a>
+                                    {% if item.discount_price %}
+                                    <span class="discount-percentage"
+                                          style="top: 10px; left: 10px; background-color: #ffcc00; color: #fff; padding: 5px; border-radius: 5px; font-weight: bold; z-index: 10;">
+                                        -{{ item.discount_price }}%
+                                    </span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td class="profile__table-data">{{ item.discount_price|default:item.product_price }}</td>
+                            <td class="profile__table-data">{{ item.order.created_at }}</td>
+                            <td class="profile__table-data">{{ item.state }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% endfor %}
+                    </table>
+                    {% else %}
+                    <p>Нет заказанных товаров</p>
+                    {% endif %}
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock main %}
+
+
+
+
+

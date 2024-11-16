@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load loft_tags %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block main %}
+<img src="{% static 'loft/assets/images/success.jpg' %}" alt="">
+
+
+<a href="{% url 'main' %}" class="btn">Продожить покупки</a>
+{% endblock main %}

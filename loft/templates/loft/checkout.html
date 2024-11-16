@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load loft_tags %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block main %}
+<main>
+    <div class="content">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 20px; color: #333;">
+            <h2 class="checkout_title" style="text-align: center; font-size: 32px; margin-bottom: 20px; color: #444;">
+                Оформление заказа
+            </h2>
+
+            <div class="checkout_content" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+
+                <!-- Customer Details Form -->
+                <div class="profile__content"
+                     style="width: 48%; background-color: #f9f9f9; padding: 20px; border-radius: 8px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+
+                    <form action="{% url 'payment' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="block_input" style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <div class="form-group" style="width: 48%;">
+                                <h4 style="font-size: 16px; color: #666; margin-bottom: 5px;">Имя</h4>
+                                {{ shipping_form.first_name }}
+                            </div>
+                            <div class="form-group" style="width: 48%;">
+                                <h4 style="font-size: 16px; color: #666; margin-bottom: 5px;">Фамилия</h4>
+                                {{ shipping_form.last_name }}
+                            </div>
+                        </div>
+
+                        <div class="block_input" style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <div class="form-group" style="width: 48%;">
+                                <h4 style="font-size: 16px; color: #666; margin-bottom: 5px;">Город</h4>
+                                {{ shipping_form.city }}
+                            </div>
+                            <div class="form-group" style="width: 48%;">
+                                <h4 style="font-size: 16px; color: #666; margin-bottom: 5px;">Адрес</h4>
+                                {{ shipping_form.address }}
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <h4 style="font-size: 16px; color: #666; margin-bottom: 5px;">Номер телефона</h4>
+                            {{ shipping_form.phone }}
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <h4 style="font-size: 16px; color: #666; margin-bottom: 5px;">Комментарий к заказу</h4>
+                            {{ shipping_form.comment }}
+                        </div>
+
+                        <button type="submit"
+                                style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: background-color 0.3s;">
+                            Оформить заказ
+                        </button>
+                    </form>
+                </div>
+
+
+                <div class="check"
+                     style="width: 48%; background-color: #f9f9f9; padding: 20px; border-radius: 8px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+                    <h2 class="address_title" style="font-size: 22px; margin-bottom: 15px; color: #555;">
+                        Мои заказы
+                    </h2>
+                    <div class="order_check_info" style="font-size: 16px;">
+                        {% for item in items %}
+                        <div class="count_price" style="margin-bottom: 10px;">
+
+                            <p style="font-size: 16px; font-weight: bold;">{{ item.product.title }}</p>
+                            <div class="price_count"
+                                 style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <p style="font-size: 14px; color: #555;"><strong>Количество:</strong>
+                                    {{ item.quantity }} шт</p>
+
+                                <p style="font-size: 14px; color: #555;"><strong>Итоговая сумма:</strong>
+                                    {% get_normal_price item.product.price %} ₽</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="line_down_check" style="border-bottom: 1px solid #ccc; margin: 20px 0;"></div>
+                        <h2 class="pay_title" style="font-size: 18px; text-align: right; color: #333;">Сумма оплаты:
+                            {% get_normal_price order.get_card_total_price %} ₽</h2>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock main %}

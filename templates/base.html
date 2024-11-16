@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+
+    {% include 'components_base/_style.html' %}
+
+</head>
+
+<body>
+
+{% include 'components_base/_nav.html' %}
+
+<!-- /.nav -->
+
+<div class="wrapper">
+    <!-- /.header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                {% include 'components_base/_header__bar.html' %}
+
+                {% include 'components_base/_nav__catigories.html' %}
+
+                {% block slider %}
+
+                {% endblock slider %}
+
+
+
+
+
+
+
+            </div>
+            <!-- /.header__content -->
+        </div>
+        <!-- /.container -->
+    </header>
+
+
+    {% block main %}
+
+    {% endblock main %}
+
+    <!-- /.main -->
+
+    {% include 'layout/_footer.html' %}
+
+    <!-- /.footer -->
+</div>
+<!-- /.wrapper -->
+{% include 'components_base/_script.html' %}
+
+</body>
+
+</html>

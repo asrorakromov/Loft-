@@ -1,0 +1,19 @@
+{% load static %}
+{% load loft_tags %}
+<ul class="nav__list _categories">
+    <li>
+        <h2 class="nav__title nav__title-categories">Категории</h2>
+    </li>
+    {% get_categories as categories %}
+    {% for category in categories %}
+    <li>
+        <a href="{{ category.get_absolute_url }}" class="nav__list-links">
+            {% if category.icon %}
+            <img src="{{ category.get_icon }}" alt="icons">
+            {% endif %}
+            {{ category.title }}
+        </a>
+    </li>
+    {% endfor %}
+
+</ul>

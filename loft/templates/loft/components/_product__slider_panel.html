@@ -1,0 +1,31 @@
+{% load static %}
+
+
+<div class="product__slider-panel">
+
+    <ul class="product__slider-indicators">
+        <li>
+            <a href="#!" class="indicators__links active">
+                <img src="{{ product.get_image_product }}" alt="products" width="150" >
+            </a>
+        </li>
+
+        {% for image in product.images.all|slice:"1:" %}
+        <li>
+            <a href="#!" class="indicators__links">
+                <img src="{{ image.image.url }}" alt="products" width="150">
+            </a>
+        </li>
+        {% endfor %}
+
+    </ul>
+
+    <div class="product__slider-btns">
+        <button class="btn__next">
+            <img src="{% static 'loft/assets/icons/arrow-black.svg' %}" alt="arrow">
+        </button>
+        <button class="btn__prev">
+            <img src="{% static 'loft/assets/icons/arrow-black.svg' %}" alt="arrow">
+        </button>
+    </div>
+</div>

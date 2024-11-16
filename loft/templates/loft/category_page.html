@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load loft_tags %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+
+
+{% block main %}
+<main class="main">
+    <div class="container">
+        <section class="products">
+            <div class="products__content">
+
+                <!-- /.products__item -->
+                {% if products %}
+                    {% for product in products %}
+                        {% include 'loft/components/_products__item.html' %}
+                    {% endfor %}
+                {% else %}
+                    <h3>Ничего не найдено</h3>
+                {% endif %}
+
+            </div>
+        </section>
+        <!-- /.products -->
+    </div>
+    <!-- /.container -->
+</main>
+{% endblock main %}

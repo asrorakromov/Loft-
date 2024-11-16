@@ -1,0 +1,43 @@
+{% load static %}
+<div class="header__bar">
+    <a href="#!" class="nav__bars-open">
+        <span class="burger"></span>
+        <span class="burger"></span>
+        <span class="burger"></span>
+    </a>
+
+    <a href="{% url 'main' %}" class="logo">
+        <img src="{% static 'loft/assets/icons/LOGO.svg' %}" alt="logo">
+    </a>
+    <form class="header__search" action="{% url 'search' %}" method="post">
+        {% csrf_token %}
+        <i class="fal fa-search"></i>
+        <input type="text" name="search" class="header__search-txt" placeholder="{% if request.POST.name %}{{ request.POST.name }}{% else %}Поиск{% endif %}">
+    </form>
+
+    <ul class="header__list">
+        <li>
+            <a href="{% url 'login' %}" class="header__list-item _truck">
+                <i class="far fa-truck"></i>
+                Доставка
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'favourite' %}" class="header__list-item" id="_heart">
+
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'basket' %}" class="header__list-item" id="_bag">
+
+            </a>
+        </li>
+        <li>
+
+            <a href="{% if not request.user.is_authenticated %}{% url 'login' %}{% else %}{% url 'profile' %}{% endif %}"
+               class="header__list-item" id="_profile">
+            </a>
+
+        </li>
+    </ul>
+</div>
